@@ -14,6 +14,8 @@ if __name__ == "__main__":
     rdd3 = rdd.flatMap(lambda x: x.split(" ")).map(lambda word: (word, 1)).reduceByKey(lambda x, y: x + y)
 
     rating = rdd3.map(lambda x: (x[1], x[0])).sortByKey(ascending=False).take(10)
+    #def w_print(x): print(x)
+    #result=rating.foreach(w_print)
     for x in rating:
         print(x)
 # -------------------------------------------second task-----------------------------------------------------------
@@ -25,12 +27,13 @@ if __name__ == "__main__":
     for x in temparr[:15]:
         print(x)
     print("\n")
+    #trash_words = ['was', 'Let', 'is', 'something', 'weird', 'the']
+    #cleaned = rdd2.flatMap(lambda x: x.split(" ")).filter(lambda x: x in trash_words).collect()
     cleaned = rdd2.flatMap(lambda x: x.split(" ")).filter(lambda x: x in temparr).collect()
     for x in cleaned[:15]:
         print(x)
-
-
-
+    #result2 = cleaned[:15].foreach(w_print)
+    
     print("\n")
     # cleaned = output.filter(lambda word: ord not in stopwords)
     #
