@@ -18,11 +18,13 @@ if __name__ == "__main__":
         print(x)
 # -------------------------------------------second task-----------------------------------------------------------
     rdd2 = spark.sparkContext.textFile("input_data/text_with_trash.csv")
-    # data = rdd.flatMap(lambda x: x.split(" ")).collect() # collected all data in one dataset from the first txt file
-    # temparr = []
-    # temparr = data
-    # for x in temparr[:15]:
-    #     print(x)
+    # part below is just fir demonstrating that search and filterring for trash words works
+    data = rdd.flatMap(lambda x: x.split(" ")).collect() # collected all data in one dataset from the first txt file
+    temparr = []
+    temparr = data
+    for x in temparr[:15]:
+        print(x)
+
     print("\n")
     trash_words = ['was', 'Let', 'is', 'something', 'weird', 'the', 'so', 'happening', 'recently', '\'']
     cleaned = rdd2.flatMap(lambda x: x.split(" ")).filter(lambda x: x not in trash_words).collect()
