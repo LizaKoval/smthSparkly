@@ -12,36 +12,26 @@ if __name__ == "__main__":
 
     rdd = spark.sparkContext.textFile("input_data/input.txt")
     rdd3 = rdd.flatMap(lambda x: x.split(" ")).map(lambda word: (word, 1)).reduceByKey(lambda x, y: x + y)
-
     rating = rdd3.map(lambda x: (x[1], x[0])).sortByKey(ascending=False).take(10)
-    #def w_print(x): print(x)
-    #result=rating.foreach(w_print)
+
     for x in rating:
         print(x)
 # -------------------------------------------second task-----------------------------------------------------------
     rdd2 = spark.sparkContext.textFile("input_data/text_with_trash.csv")
-
-    data = rdd.flatMap(lambda x: x.split(" ")).collect() # collected all data in one dataset from the first txt file
-    temparr = []
-    temparr = data
-    for x in temparr[:15]:
-        print(x)
+    # data = rdd.flatMap(lambda x: x.split(" ")).collect() # collected all data in one dataset from the first txt file
+    # temparr = []
+    # temparr = data
+    # for x in temparr[:15]:
+    #     print(x)
     print("\n")
-    #trash_words = ['was', 'Let', 'is', 'something', 'weird', 'the']
-    #cleaned = rdd2.flatMap(lambda x: x.split(" ")).filter(lambda x: x in trash_words).collect()
-    cleaned = rdd2.flatMap(lambda x: x.split(" ")).filter(lambda x: x in temparr).collect()
+    trash_words = ['was', 'Let', 'is', 'something', 'weird', 'the', 'so', 'happening', 'recently', '\'']
+    cleaned = rdd2.flatMap(lambda x: x.split(" ")).filter(lambda x: x not in trash_words).collect()
     for x in cleaned[:15]:
         print(x)
-    #result2 = cleaned[:15].foreach(w_print)
     
     print("\n")
-    # cleaned = output.filter(lambda word: ord not in stopwords)
-    #
-    # for x in output:
-    #      print(x)
 
-
-
+    #TODO: DELETE IT LATER
     # cleaned = output.filter(lambda word:  ord not in stopwords)
 
 
